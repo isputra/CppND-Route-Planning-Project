@@ -43,6 +43,22 @@ void RoutePlanner::AddNeighbors(RouteModel::Node *current_node) {
     }
 }
 
+/**
+ * Compare the F values of two cells.
+ */
+bool Compare(const RouteModel::Node* a, const RouteModel::Node* b) {
+  int f1 = a->g_value + a->h_value; // f1 = g1 + h1
+  int f2 = b->g_value + b->h_value; // f2 = g2 + h2
+  return f1 > f2; 
+}
+
+
+/**
+ * Sort the two-dimensional vector of ints in descending order.
+ */
+void CellSort(std::vector<RouteModel::Node*> *v) {
+  sort(v->begin(), v->end(), Compare);
+}
 
 // TODO 5: Complete the NextNode method to sort the open list and return the next node.
 // Tips:
@@ -52,7 +68,9 @@ void RoutePlanner::AddNeighbors(RouteModel::Node *current_node) {
 // - Return the pointer.
 
 RouteModel::Node *RoutePlanner::NextNode() {
-
+    CellSort(&open_list);
+    RouteModel::Node * node = open_list.back();
+    open_list.pop_back();
 }
 
 
