@@ -115,7 +115,7 @@ void RoutePlanner::AStarSearch() {
 
     // TODO: Implement your solution here.
     current_node = start_node;
-    current_node->h_value = CalculateHValue(current_node);
+    current_node->visited = true;
 
     open_list.emplace_back(current_node);
     while(open_list.size() > 0){
