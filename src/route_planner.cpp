@@ -47,8 +47,8 @@ void RoutePlanner::AddNeighbors(RouteModel::Node *current_node) {
  * Compare the F values of two cells.
  */
 bool Compare(const RouteModel::Node* a, const RouteModel::Node* b) {
-  int f1 = a->g_value + a->h_value; // f1 = g1 + h1
-  int f2 = b->g_value + b->h_value; // f2 = g2 + h2
+  float f1 = a->g_value + a->h_value; // f1 = g1 + h1
+  float f2 = b->g_value + b->h_value; // f2 = g2 + h2
   return f1 > f2; 
 }
 
