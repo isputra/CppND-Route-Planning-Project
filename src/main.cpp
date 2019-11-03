@@ -26,6 +26,23 @@ static std::optional<std::vector<std::byte>> ReadFile(const std::string &path)
         return std::nullopt;
     return std::move(contents);
 }
+/**
+ * Verify if the coordinate value entered is between 0-100 and is of type float (not string).
+ */
+void InputCoordinate(float& coor, std::string coor_name){
+    bool first = true;
+    std::string enter_message = "Enter the ";
+    do {
+        std::cin.clear();
+        if(!first) {
+            std::cin.ignore(10000,'\n');
+            enter_message = "Invalid input! Please re-enter the ";
+        }
+        std::cout << enter_message << coor_name << " between 0-100: ";
+        std::cin >> coor;
+        first = false;
+    } while (!std::cin.good() || coor < 0 || coor > 100);
+}
 
 int main(int argc, const char **argv)
 {    
@@ -55,18 +72,11 @@ int main(int argc, const char **argv)
     // TODO 1: Declare floats `start_x`, `start_y`, `end_x`, and `end_y` and get
     // user input for these values using std::cin. Pass the user input to the
     // RoutePlanner object below in place of 10, 10, 90, 90.
-    float start_x=10, start_y=10, end_x=90, end_y=90;
-    do {
-        std::cout << "Input the start coordinate x between 0-100: ";
-        std::cin >> start_x;
-        std::cout << "Input the start coordinate y between 0-100: ";
-        std::cin >> start_y;
-        std::cout << "Input the end coordinate x between 0-100: ";
-        std::cin >> end_x;
-        std::cout << "Input the end coordinate y between 0-100: ";
-        std::cin >> end_y;
-    } while ((start_x < 0 || start_x > 100) || (start_y < 0 || start_y > 100) || 
-             (end_x < 0 || end_x > 100) || (end_y < 0 || end_y > 100));
+    float start_x, start_y, end_x, end_y;
+    InputCoordinate(start_x, "start coordinate x");
+    InputCoordinate(start_y, "start coordinate y");
+    InputCoordinate(end_x, "end coordinate x");
+    InputCoordinate(end_y, "end coordinate y");
     
     // Build Model.
     RouteModel model{osm_data};
